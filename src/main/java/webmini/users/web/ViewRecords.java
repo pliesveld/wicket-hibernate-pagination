@@ -133,7 +133,7 @@ public class ViewRecords extends WebPage
         public IModel<UserDetails> model(final UserDetails userDetails)
         {
             final Integer id = userDetails.getId();
-            return new LoadableDetachableModel<UserDetails>() {
+            return new LoadableDetachableModel<UserDetails>(userDetails) {
 
                 @Override
                 protected UserDetails load() {
