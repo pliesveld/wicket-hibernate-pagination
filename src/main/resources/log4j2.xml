@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns:log4j="http://jakarta.apache.org/log4j/" configDebug="true">
+  <Properties>
+      <Property name="filename">target/hibernate.log</Property>
+      <Property name="servicefilename">target/service.log</Property>
+      <Property name="springfilename">target/spring.log</Property>
+  </Properties>
+
+    <Appenders>
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <File name="FileHibernate" fileName="${filename}">
+      <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+    <File name="FileService" fileName="${servicefilename}">
+        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+    <File name="FileSpring" fileName="${springfilename}">
+        <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </File>
+
+    </Appenders>
+  <Loggers>
+    <logger name="webmini" level="DEBUG" additivity="false">
+        <AppenderRef ref="FileService"/>
+        <AppenderRef ref="CONSOLE"/>
+    </logger>
+  	<logger name="org.hibernate" level="WARN" additivity="false">
+  		<AppenderRef ref="FileHibernate"/>
+  	</logger>
+  	<logger name="org.springframework" level="WARN" additivity="false">
+  		<AppenderRef ref="FileSpring"/>
+  	</logger>
+    <Root level="ERROR">
+      <AppenderRef ref="CONSOLE"/>
+    </Root>
+  </Loggers>
+</Configuration>
