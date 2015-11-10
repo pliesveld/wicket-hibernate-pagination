@@ -31,12 +31,12 @@ import webmini.dao.UserDaoImpl;
 public class SpringConfig
 {
 
-	@Bean
-	public WebMiniApplication webMiniApplication()
-	{
-		return new WebMiniApplication();
-	}
-	
+    @Bean
+    public WebMiniApplication webMiniApplication()
+    {
+        return new WebMiniApplication();
+    }
+
     @Bean
     public UserDao userDao()
     {
@@ -53,7 +53,7 @@ public class SpringConfig
         sessionFactory.setPackagesToScan(new String[] { "webmini.model" });
         sessionFactory.setHibernateProperties(hibernateProperties());
         return sessionFactory;
-     }
+    }
 
     @Bean
     public DataSource dataSource() {
@@ -72,15 +72,15 @@ public class SpringConfig
         properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
         properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
         properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
-        return properties;        
+        return properties;
     }
 
     @Bean
     @Autowired
     public HibernateTransactionManager transactionManager(SessionFactory s) {
-       HibernateTransactionManager txManager = new HibernateTransactionManager();
-       txManager.setSessionFactory(s);
-       return txManager;
+        HibernateTransactionManager txManager = new HibernateTransactionManager();
+        txManager.setSessionFactory(s);
+        return txManager;
     }
 }
 

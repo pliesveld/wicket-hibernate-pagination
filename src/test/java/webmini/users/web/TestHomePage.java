@@ -22,34 +22,34 @@ import webmini.common.SpringConfig;
 @ContextConfiguration(classes = { SpringConfig.class } )
 public class TestHomePage
 {
-	private WicketTester tester;
+    private WicketTester tester;
 
     @Autowired
     private ApplicationContext ctx;
 
     @Autowired
     private WebMiniApplication webMiniApplication;
-    
-	@Before
-	public void setUp()
-	{
-		tester = new WicketTester(webMiniApplication);
-	}
 
-	@Test
-	public void userpageRendersSuccessfully()
-	{
-		tester.startPage(CreateRecord.class);
-		tester.assertRenderedPage(CreateRecord.class);
-	}
+    @Before
+    public void setUp()
+    {
+        tester = new WicketTester(webMiniApplication);
+    }
 
-	@Test
-	public void viewpageRendersSuccessfully()
-	{
-		tester.startPage(ViewRecords.class);
-		tester.assertRenderedPage(ViewRecords.class);
-	}
+    @Test
+    public void userpageRendersSuccessfully()
+    {
+        tester.startPage(CreateRecord.class);
+        tester.assertRenderedPage(CreateRecord.class);
+    }
 
-	
-	
+    @Test
+    public void viewpageRendersSuccessfully()
+    {
+        tester.startPage(ViewRecords.class);
+        tester.assertRenderedPage(ViewRecords.class);
+    }
+
+
+
 }

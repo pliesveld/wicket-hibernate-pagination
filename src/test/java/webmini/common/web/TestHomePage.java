@@ -22,25 +22,25 @@ import webmini.common.SpringConfig;
 @ContextConfiguration(classes = { SpringConfig.class } )
 public class TestHomePage
 {
-	private WicketTester tester;
+    private WicketTester tester;
 
     @Autowired
     private ApplicationContext ctx;
 
     @Autowired
     private WebMiniApplication webMiniApplication;
-    
-	@Before
-	public void setUp()
-	{
-		tester = new WicketTester(webMiniApplication);
-	}
 
-	@Test
-	public void homepageRendersSuccessfully()
-	{
-		tester.startPage(HomePage.class);
-		tester.assertRenderedPage(HomePage.class);
-	}
+    @Before
+    public void setUp()
+    {
+        tester = new WicketTester(webMiniApplication);
+    }
+
+    @Test
+    public void homepageRendersSuccessfully()
+    {
+        tester.startPage(HomePage.class);
+        tester.assertRenderedPage(HomePage.class);
+    }
 
 }

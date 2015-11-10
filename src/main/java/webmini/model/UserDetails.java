@@ -27,11 +27,11 @@ public class UserDetails
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
-    	this.id = id;
-	}
-    
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -66,13 +66,13 @@ public class UserDetails
     public int hashCode()
     {
         int result =
-                 (name != null ? name.hashCode() : 0 );
+            (name != null ? name.hashCode() : 0 );
 
         result = 31*result
-                + (email != null ? email.hashCode() : 0 );
+                 + (email != null ? email.hashCode() : 0 );
 
         result = 31*result
-                + (role != null ? role.hashCode() : 0 );
+                 + (role != null ? role.hashCode() : 0 );
 
         return result;
     }

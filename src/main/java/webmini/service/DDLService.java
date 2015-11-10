@@ -15,33 +15,33 @@ import static org.hibernate.tool.hbm2ddl.Target.EXPORT;
 import webmini.model.UserDetails;
 
 /**
- * Generates database schemas for annotated classes.  Requires dialects and naming schemes. 
- * 
+ * Generates database schemas for annotated classes.  Requires dialects and naming schemes.
+ *
  *
  */
 public class DDLService {
-	public void DDLService() {}
-	
-	public static void main(String[] args) {
-		Class<?> annotated_class = UserDetails.class;
-		String annotated_class_name = annotated_class.getSimpleName();
-		
-		MetadataSources metadata = new MetadataSources(
-				new StandardServiceRegistryBuilder()
-				.applySetting("hibernate.dialect", "org.hibernate.dialect.HSQLDialect")
-				.build());
+    public void DDLService() {}
 
-		metadata.addAnnotatedClass(annotated_class);
+    public static void main(String[] args) {
+        Class<?> annotated_class = UserDetails.class;
+        String annotated_class_name = annotated_class.getSimpleName();
 
-		SchemaExport export = new SchemaExport(
-				(MetadataImplementor) metadata.buildMetadata());
-		
-		export.setDelimiter(";");
-		export.setFormat(true);
-		
-	    export.setOutputFile(String.format("%s.ddl",annotated_class_name));
-	    export.drop(SCRIPT);
-		export.create(SCRIPT);
-	}
+        MetadataSources metadata = new MetadataSources(
+            new StandardServiceRegistryBuilder()
+            .applySetting("hibernate.dialect", "org.hibernate.dialect.HSQLDialect")
+            .build());
+
+        metadata.addAnnotatedClass(annotated_class);
+
+        SchemaExport export = new SchemaExport(
+            (MetadataImplementor) metadata.buildMetadata());
+
+        export.setDelimiter(";");
+        export.setFormat(true);
+
+        export.setOutputFile(String.format("%s.ddl",annotated_class_name));
+        export.drop(SCRIPT);
+        export.create(SCRIPT);
+    }
 
 }

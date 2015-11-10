@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import webmini.dao.UserDao;
 
 /**
- * I am not sure of the purpose of this separation.  
+ * I am not sure of the purpose of this separation.
  *
  * I think this is supposed simply the finding of DAOs once more models have been added to the system.
  * Or to differentiate between different types of DAOS.  For example; if, in adddition to the hibernate DAO I currently have,
@@ -16,24 +16,24 @@ import webmini.dao.UserDao;
  *
  * But at the moment, there is only one DAO class, @see webmini.model.UserDao
  *
- * 
+ *
  */
 
 @Component
 public class UserService
 {
-        @Autowired
-        private UserDao userDao;
+    @Autowired
+    private UserDao userDao;
 
-        public UserService() {}
+    public UserService() {}
 
-        public UserDao getUserDao()
-        {
-                return userDao;
-        }
+    public UserDao getUserDao()
+    {
+        return userDao;
+    }
 
-        public void setUserDao(UserDao userDao)
-        {
-                this.userDao = userDao;
-        }
+    public void setUserDao(UserDao userDao)
+    {
+        this.userDao = userDao;
+    }
 }

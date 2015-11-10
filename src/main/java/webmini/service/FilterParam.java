@@ -9,22 +9,22 @@ import java.io.Serializable;
  */
 public abstract class FilterParam<T> implements Serializable
 {
-	private static final long serialVersionUID = 1L;
-	
-	private String field;
-	private T value;
-	
-	public FilterParam(String field,T value) {
-		this.field = field;
-		this.value = value;
-	}
+    private static final long serialVersionUID = 1L;
 
-	public String getField() {
-		return field;
-	}
+    private String field;
+    private T value;
+
+    public FilterParam(String field,T value) {
+        this.field = field;
+        this.value = value;
+    }
+
+    public String getField() {
+        return field;
+    }
 
     public T getValue() {
-		return value;
-	}
+        return value;
+    }
 
 }

@@ -33,9 +33,9 @@ public class WebMiniApplication extends WebApplication
     }
 
     @Override
-    public Class getHomePage() 
+    public Class getHomePage()
     {
-            return HomePage.class;
+        return HomePage.class;
     }
 
     public WebMiniApplication() {}
