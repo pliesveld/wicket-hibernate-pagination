@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Order;
@@ -61,9 +62,8 @@ public class UserDaoImpl implements UserDao {
     public long getCount() {
         LOG.info("getCount()");
         Session session = getSession();
-        Integer totalCount = session.createCriteria(UserDetails.class)
-                             .setProjection(Projections.rowCount()).uniqueResult()
-                             .hashCode();
+        Query query = session.getNamedQuery("UserDetails.countAll");
+        Integer totalCount = query.uniqueResult().hashCode();
         return totalCount;
     }
 
@@ -77,11 +77,9 @@ public class UserDaoImpl implements UserDao {
     public UserDetails getUser(int id) {
         LOG.info(String.format("getUser(%d)",id));
         Session session = getSession();
-        UserDetails user = null;
-        user = (UserDetails) session.createCriteria(UserDetails.class)
-               .add(Restrictions.eq("id",id))
-               .uniqueResult();
-        return user;
+        Query query = session.getNamedQuery("UserDetails.findByUserId");
+        query.setInteger("id", id);
+        return (UserDetails) query.uniqueResult();
     }
 
     /* (non-Javadoc)

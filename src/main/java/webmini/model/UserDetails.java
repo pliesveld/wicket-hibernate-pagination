@@ -6,8 +6,22 @@ import javax.persistence.Enumerated;
 import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-@Entity(name="USERSDETAILS")
+@Entity
+@Table(name="USERSDETAILS")
+@NamedQueries({
+	@NamedQuery(name="UserDetails.findAll", query="SELECT u FROM UserDetails u"),
+	@NamedQuery(name="UserDetails.countAll", query="SELECT COUNT(u) FROM UserDetails u"),
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(name="UserDetails.findByUserId", query="SELECT u FROM UserDetails u WHERE u.id = :id",
+			resultClass=UserDetails.class)
+})
 public class UserDetails
 {
     @Id
