@@ -65,7 +65,7 @@ public class TestSchema
 
         if(cfg_obj instanceof org.springframework.orm.hibernate5.LocalSessionFactoryBean)
         {
-            org.springframework.orm.hibernate5.LocalSessionFactoryBean s_factory = 
+            org.springframework.orm.hibernate5.LocalSessionFactoryBean s_factory =
                 (org.springframework.orm.hibernate5.LocalSessionFactoryBean) cfg_obj;
 
             cfg = s_factory.getConfiguration();
@@ -74,8 +74,8 @@ public class TestSchema
             // http://stackoverflow.com/questions/32178041/where-did-configuration-generateschemacreationscript-go-in-hibernate-5
             // SchemaExporter
         }
-        
-        
+
+
 
     }
 

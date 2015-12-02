@@ -20,37 +20,37 @@ public class GenerateRecords extends WebPage
 
     @SpringBean
     private UserDao userDao;
-    
+
     @SpringBean
     private GenerateUserRecords generateUserRecords;
-    
-	int count;		
-    
-	public GenerateRecords()
+
+    int count;
+
+    public GenerateRecords()
     {
         setVersioned(false);
-		Form<?> form = new Form<Void>("form")
-		{
-			@Override
+        Form<?> form = new Form<Void>("form")
+        {
+            @Override
             protected void onSubmit()
             {
-				Component child = this.get("count");
-				Object model = child.getDefaultModelObject();
-				
-				if(model instanceof Integer)
-				{
-					Integer count = (Integer)model;
-	            	LOG.info("counting:" + count);
-					generateUserRecords.create(count);
-				}
+                Component child = this.get("count");
+                Object model = child.getDefaultModelObject();
+
+                if(model instanceof Integer)
+                {
+                    Integer count = (Integer)model;
+                    LOG.info("counting:" + count);
+                    generateUserRecords.create(count);
+                }
             }
-		};
-  
-		form.add(new RangeTextField<Integer>("count",new PropertyModel<>(this, "count"))
-				.setMinimum(1)
-				.setMaximum(600)
-				.setRequired(true));
-		          
+        };
+
+        form.add(new RangeTextField<Integer>("count",new PropertyModel<>(this, "count"))
+                 .setMinimum(1)
+                 .setMaximum(600)
+                 .setRequired(true));
+
         add(form);
         add(new FeedbackPanel("feedback"));
     }

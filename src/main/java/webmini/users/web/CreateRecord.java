@@ -42,17 +42,17 @@ public class CreateRecord extends WebPage
         setDefaultModel(new CompoundPropertyModel<>(input));
         Form<?> form = new Form("form")
         {
-                @Override
-                protected void onSubmit()
-                {
-                    info("adding user: " + input);
-                    UserDetails user = new UserDetails();
-                    user.setName(input.userName);
-                    user.setEmail(input.userEmail);
-                    user.setRole(input.userRole);
+            @Override
+            protected void onSubmit()
+            {
+                info("adding user: " + input);
+                UserDetails user = new UserDetails();
+                user.setName(input.userName);
+                user.setEmail(input.userEmail);
+                user.setRole(input.userRole);
 
-                    userDao.saveUser(user);
-                }
+                userDao.saveUser(user);
+            }
         };
 
         add(form);
@@ -69,7 +69,7 @@ public class CreateRecord extends WebPage
         form.add(username);
 
         form.add(new DropDownChoice<UserRole>("userRole",
-                                Arrays.asList(UserRole.values())));
+                                              Arrays.asList(UserRole.values())));
 
         add(new FeedbackPanel("feedback"));
     }
@@ -83,7 +83,7 @@ public class CreateRecord extends WebPage
         @Override
         public String toString()
         {
-                return "user = " + userName + ", email = " + userEmail + ", role = " + userRole;
+            return "user = " + userName + ", email = " + userEmail + ", role = " + userRole;
         }
     }
 

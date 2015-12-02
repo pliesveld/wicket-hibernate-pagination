@@ -18,7 +18,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
-import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider; 
+import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.filter.IFilterStateLocator;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
@@ -45,9 +45,9 @@ import webmini.service.FilterParam;
 
 public class ViewRecords extends WebPage
 {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	final static Logger LOG = LogManager.getLogger(ViewRecords.class);
+    final static Logger LOG = LogManager.getLogger(ViewRecords.class);
 
     @SpringBean
     private UserDao userDao;
@@ -67,8 +67,8 @@ public class ViewRecords extends WebPage
 
         dataTable.setOutputMarkupId(true);
         FilterForm<FilterParam<String>> filterForm = new FilterForm<FilterParam<String>>("filterForm",dp);
-        
-        /* underlying type of filterstate has field FilterParam that has field value*/ 
+
+        /* underlying type of filterstate has field FilterParam that has field value*/
         filterForm.add(new TextField<>("filterEmail", PropertyModel.of(dp,"filterState.value")));
 
         add(filterForm);
@@ -82,17 +82,17 @@ public class ViewRecords extends WebPage
     }
 
 
-/**
- * 
- * SortableDataProvider has methods for retriving an iterator range 
- * from a datasource, and builtin in model state for sorting data.
- */
+    /**
+     *
+     * SortableDataProvider has methods for retriving an iterator range
+     * from a datasource, and builtin in model state for sorting data.
+     */
     private class SortableUserProvider extends SortableDataProvider<UserDetails,String>
-            implements IFilterStateLocator<FilterParam<String>>
+        implements IFilterStateLocator<FilterParam<String>>
     {
 
-		private static final long serialVersionUID = 1L;
-		private FilterParam<String> emailFilter = new EmailFilter("");
+        private static final long serialVersionUID = 1L;
+        private FilterParam<String> emailFilter = new EmailFilter("");
 
         public SortableUserProvider()
         {
@@ -105,12 +105,12 @@ public class ViewRecords extends WebPage
             String email = emailFilter.getValue();
 
             QueryParam param = new QueryParam(first,count,getSort());
-            
+
             if(email == null || email == "")
             {
-            	return userDao.find(param).iterator();
+                return userDao.find(param).iterator();
             } else {
-            	return userDao.find(param,getFilterState()).iterator();
+                return userDao.find(param,getFilterState()).iterator();
             }
         }
 
@@ -125,9 +125,9 @@ public class ViewRecords extends WebPage
 
         /**
          * LoadDetachableModel has methods for clearing our references to the model type
-         * being held.  After the request cycle, when the data is no longer used, this 
-         * allows us a chance to prevent the class from being serialized with the rest of 
-         * the page. 
+         * being held.  After the request cycle, when the data is no longer used, this
+         * allows us a chance to prevent the class from being serialized with the rest of
+         * the page.
          */
         @Override
         public IModel<UserDetails> model(final UserDetails userDetails)
@@ -135,7 +135,7 @@ public class ViewRecords extends WebPage
             final Integer id = userDetails.getId();
             return new LoadableDetachableModel<UserDetails>(userDetails) {
 
-				@Override
+                @Override
                 protected UserDetails load() {
                     //LOG.info(String.format("Load(%d) = %s",id,user));
                     return userDao.getUser(id);
@@ -146,137 +146,137 @@ public class ViewRecords extends WebPage
 
         @Override
         public void detach() {
-        	super.detach();
+            super.detach();
             LOG.info("detach()");
         }
 
-		@Override
-		public FilterParam<String> getFilterState() {
-			return emailFilter;
-		}
+        @Override
+        public FilterParam<String> getFilterState() {
+            return emailFilter;
+        }
 
-		@Override
-		public void setFilterState(FilterParam<String> state) {
-			this.emailFilter = state;
-			
-		}
+        @Override
+        public void setFilterState(FilterParam<String> state) {
+            this.emailFilter = state;
+
+        }
     }
-    
-}    
+
+}
 //prior techniques for rendering tables
-        /*
-         * The second attempt uses DataGridView which differs from
-         * DataView in that populateItem is no longer called.  Columns identifiers are
-         * created and passed into the DataGridView.  The markup resebles a table entry:
+/*
+ * The second attempt uses DataGridView which differs from
+ * DataView in that populateItem is no longer called.  Columns identifiers are
+ * created and passed into the DataGridView.  The markup resebles a table entry:
 
 
-        <!-- markup for DataGridView -->
-        <table>
-            <tr wicket:id="rows">
-                <td wicket:id="cells">
-                    <span wicket:id="cell">cell content goes here</span>
-                </td>
-            </tr>
-        </table>
+<!-- markup for DataGridView -->
+<table>
+    <tr wicket:id="rows">
+        <td wicket:id="cells">
+            <span wicket:id="cell">cell content goes here</span>
+        </td>
+    </tr>
+</table>
 
 
 
-        List<ICellPopulator<UserDetails>> columns = new ArrayList<>();
-        columns.add(new PropertyPopulator<UserDetails>("id"));
-        columns.add(new PropertyPopulator<UserDetails>("name"));
-        columns.add(new PropertyPopulator<UserDetails>("email"));
-        columns.add(new PropertyPopulator<UserDetails>("role"));
+List<ICellPopulator<UserDetails>> columns = new ArrayList<>();
+columns.add(new PropertyPopulator<UserDetails>("id"));
+columns.add(new PropertyPopulator<UserDetails>("name"));
+columns.add(new PropertyPopulator<UserDetails>("email"));
+columns.add(new PropertyPopulator<UserDetails>("role"));
 
-        final DataGridView<UserDetails> dataView = new DataGridView<UserDetails>("rows", columns, dp);
-        dataView.setItemsPerPage(3);
-        add(dataView);
-        */
+final DataGridView<UserDetails> dataView = new DataGridView<UserDetails>("rows", columns, dp);
+dataView.setItemsPerPage(3);
+add(dataView);
+*/
 
 
-        /*
-         * First attempt implementing a sortable view using the DataView
-         * Component.  Each label is created inside the populateItem().
+/*
+ * First attempt implementing a sortable view using the DataView
+ * Component.  Each label is created inside the populateItem().
 
-        final DataView<UserDetails> dataView = new DataView<UserDetails>("rows",dp,3)
-        {
-            public void populateItem(final Item<UserDetails> item)
-            {
-                    final UserDetails user = item.getModelObject();
-                    item.add(new Label("id", user.getId()));
-                    item.add(new Label("name", user.getName()));
-                    item.add(new Label("email", user.getEmail()));
-                    item.add(new Label("role", user.getRole()));
-            }
-        };
+final DataView<UserDetails> dataView = new DataView<UserDetails>("rows",dp,3)
+{
+    public void populateItem(final Item<UserDetails> item)
+    {
+            final UserDetails user = item.getModelObject();
+            item.add(new Label("id", user.getId()));
+            item.add(new Label("name", user.getName()));
+            item.add(new Label("email", user.getEmail()));
+            item.add(new Label("role", user.getRole()));
+    }
+};
 
 /*      DataGridView and DataTable incorporate Paging navigators into their components.
-        The prior attempts to display pagination required the PagingNavigator
+The prior attempts to display pagination required the PagingNavigator
 
-        Markup:
+Markup:
 
-        <!--
-        <div wicket:id="pagingNavigator"></div>
-        -->
+<!--
+<div wicket:id="pagingNavigator"></div>
+-->
 
-        add(new PagingNavigator("pagingNavigator",dataView));
+add(new PagingNavigator("pagingNavigator",dataView));
 
-        dataView.setItemsPerPage(3);
-        add(dataView);
+dataView.setItemsPerPage(3);
+add(dataView);
 
-        <table>
-        <!-- Markup for OrderByBorder: -->
-        <tr>
-            <th wicket:id="orderById">ID</th>
-            <th wicket:id="orderByName">username</th>
-            <th wicket:id="orderByEmail">email</th>
-            <th>role</th>
-        </tr>
+<table>
+<!-- Markup for OrderByBorder: -->
+<tr>
+    <th wicket:id="orderById">ID</th>
+    <th wicket:id="orderByName">username</th>
+    <th wicket:id="orderByEmail">email</th>
+    <th>role</th>
+</tr>
 
-        <!-- Markup for Items populated from populateItem  -->
-        <tr wicket:id="rows">
-            <td><span wicket:id="id">[ID]</span></td>
-            <td><span wicket:id="name">[NAME]</span></td>
-            <td><span wicket:id="email">[EMAIL]</span></td>
-            <td><span wicket:id="role">[ROLE]</span></td>
-        </tr>
-        </table>
+<!-- Markup for Items populated from populateItem  -->
+<tr wicket:id="rows">
+    <td><span wicket:id="id">[ID]</span></td>
+    <td><span wicket:id="name">[NAME]</span></td>
+    <td><span wicket:id="email">[EMAIL]</span></td>
+    <td><span wicket:id="role">[ROLE]</span></td>
+</tr>
+</table>
 
 
-        */
+*/
 
-        /*
-            wicket components are bind the markup labels with the sorted 
-            data provider
+/*
+    wicket components are bind the markup labels with the sorted
+    data provider
 
-            
-        add(new OrderByBorder("orderById","id",dp)
-        {
-            private static final long serialVersionUID = 1L;
 
-            @Override
-            protected void onSortChanged()
-            {
-                dataView.setCurrentPage(0);
-            }
-        });
-        add(new OrderByBorder("orderByName","name",dp)
-        {
-            private static final long serialVersionUID = 1L;
+add(new OrderByBorder("orderById","id",dp)
+{
+    private static final long serialVersionUID = 1L;
 
-            @Override
-            protected void onSortChanged()
-            {
-                dataView.setCurrentPage(0);
-            }
-        });
-        add(new OrderByBorder("orderByEmail","email",dp)
-        {
-            private static final long serialVersionUID = 1L;
+    @Override
+    protected void onSortChanged()
+    {
+        dataView.setCurrentPage(0);
+    }
+});
+add(new OrderByBorder("orderByName","name",dp)
+{
+    private static final long serialVersionUID = 1L;
 
-            @Override
-            protected void onSortChanged()
-            {
-                dataView.setCurrentPage(0);
-            }
-        }); */
+    @Override
+    protected void onSortChanged()
+    {
+        dataView.setCurrentPage(0);
+    }
+});
+add(new OrderByBorder("orderByEmail","email",dp)
+{
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void onSortChanged()
+    {
+        dataView.setCurrentPage(0);
+    }
+}); */
 

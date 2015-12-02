@@ -26,13 +26,13 @@
         <AppenderRef ref="FileService"/>
         <AppenderRef ref="CONSOLE"/>
     </logger>
-  	<logger name="org.hibernate" level="WARN" additivity="false">
+  	<logger name="org.hibernate.SQL" level="DEBUG" additivity="false">
   		<AppenderRef ref="FileHibernate"/>
   	</logger>
   	<logger name="org.springframework" level="WARN" additivity="false">
   		<AppenderRef ref="FileSpring"/>
   	</logger>
-    <Root level="ERROR">
+    <Root level="WARN">
       <AppenderRef ref="CONSOLE"/>
     </Root>
   </Loggers>

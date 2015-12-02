@@ -3,10 +3,25 @@ package webmini.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.EnumType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQueries;
+import javax.persistence.NamedNativeQuery;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
-@Entity(name="USERSDETAILS")
+@Entity
+@Table(name="USERSDETAILS")
+@NamedQueries({
+	@NamedQuery(name="UserDetails.findAll", query="SELECT u FROM UserDetails u"),
+	@NamedQuery(name="UserDetails.countAll", query="SELECT COUNT(u) FROM UserDetails u"),
+})
+@NamedNativeQueries({
+	@NamedNativeQuery(name="UserDetails.findByUserId", query="SELECT u FROM UserDetails u WHERE u.id = :id",
+			resultClass=UserDetails.class)
+})
 public class UserDetails
 {
     @Id
@@ -20,18 +35,18 @@ public class UserDetails
     @Column(name = "EMAIL")
     private String email;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "ROLE")
     private UserRole role;
 
     public int getId() {
         return id;
     }
-    
+
     public void setId(int id) {
-    	this.id = id;
-	}
-    
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -66,13 +81,13 @@ public class UserDetails
     public int hashCode()
     {
         int result =
-                 (name != null ? name.hashCode() : 0 );
+            (name != null ? name.hashCode() : 0 );
 
         result = 31*result
-                + (email != null ? email.hashCode() : 0 );
+                 + (email != null ? email.hashCode() : 0 );
 
         result = 31*result
-                + (role != null ? role.hashCode() : 0 );
+                 + (role != null ? role.hashCode() : 0 );
 
         return result;
     }
