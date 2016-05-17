@@ -1,5 +1,8 @@
 package webmini.service;
 
+import java.util.EnumSet;
+
+
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
@@ -7,6 +10,7 @@ import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.boot.spi.MetadataImplementor;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.hibernate.tool.schema.TargetType;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
@@ -64,18 +68,21 @@ public class DDLService {
 	    		.applySetting("hibernate.dialect",properties.getRequiredProperty("hibernate.dialect"))
 	    	    .build();
 	
-	    Metadata metadata = new MetadataSources(registry)
-	    		.addAnnotatedClass(UserDetails.class)
-	    		.buildMetadata();
+	    MetadataSources metadata = new MetadataSources(registry)
+	   	        .addAnnotatedClass(UserDetails.class);
 	   
 	    String filename_export = String.format("%s.ddl",annotated_class_name); 
 	    
-	    new SchemaExport((MetadataImplementor) metadata)
-	        .setOutputFile(filename_export)
-	        .setDelimiter(";")
-	        .setFormat(true)
-	        .setHaltOnError(true)
-	    	.create(NONE);
+	    SchemaExport export = new SchemaExport();
+
+	    export.setOutputFile(filename_export);
+	    export.setDelimiter(";");
+	    export.setFormat(true);
+	    export.setHaltOnError(true);
+
+	    EnumSet<TargetType> targetTypes = EnumSet.of(TargetType.STDOUT, TargetType.SCRIPT);
+
+	    export.createOnly(targetTypes, metadata.buildMetadata());
 	    
 	    System.out.println("Exported:" + filename_export);
     }

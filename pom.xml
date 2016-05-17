@@ -11,11 +11,11 @@
 	<properties>
 		<wicket.version>7.0.0</wicket.version>
 		<jetty9.version>9.2.13.v20150730</jetty9.version>
-		<log4j.version>2.4</log4j.version>
+		<log4j.version>2.5</log4j.version>
 		<junit.version>4.12</junit.version>
-        <hibernate.version>5.0.2.Final</hibernate.version>
+        <hibernate.version>5.1.0.Final</hibernate.version>
         <postgresql.version>9.4-1204-jdbc42</postgresql.version>
-        <spring.version>4.2.2.RELEASE</spring.version>
+        <spring.version>4.2.6.RELEASE</spring.version>
         <hsqldb.version>2.3.3</hsqldb.version>
 		<wtp.version>none</wtp.version>
     </properties>
