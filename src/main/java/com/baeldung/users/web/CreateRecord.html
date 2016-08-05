@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title>Create Record</title></head>
+<body>
+<form wicket:id="form">
+    <fieldset>
+        <label for="userName">Name</label>
+        <input type="text" wicket:id="userName" name="userName">
+        <label for="accountEmail">Email</label>
+        <input type="email" wicket:id="userEmail" name="userEmail">
+        <label for="userRole">Role</label>
+        <select wicket:id="userRole" name="userRole"></select>
+    </fieldset>
+    <input type="submit">
+</form>
+<span wicket:id="feedback">feedback messages will be put here</span>
+</body>
+</html>
+

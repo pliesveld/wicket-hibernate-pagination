@@ -22,7 +22,7 @@
 
     </Appenders>
   <Loggers>
-    <logger name="webmini" level="DEBUG" additivity="false">
+    <logger name="com.baeldung" level="DEBUG" additivity="false">
         <AppenderRef ref="FileService"/>
         <AppenderRef ref="CONSOLE"/>
     </logger>

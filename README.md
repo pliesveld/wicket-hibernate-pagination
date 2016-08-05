@@ -8,9 +8,8 @@
 
 ![Screenshot1](screenshots/screenshot002.jpg)
 
-### Setup
+### Instructions
 
 * mvn clean compile
-* make server & # Start hsqldb
 * mvn jetty:run
 * navigate to localhost:8080
