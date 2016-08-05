@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>webmini.app</groupId>
-  <artifactId>mastern00b</artifactId>
+  <groupId>com.baeldung</groupId>
+  <artifactId>wicket-hibernate-demo</artifactId>
   <packaging>war</packaging>
   <version>1.0-SNAPSHOT</version>
-  <name>mastern00b</name>
+  <name>wicket hibernate demo</name>
   <url>http://maven.apache.org</url>
 
 	<properties>
@@ -13,12 +13,12 @@
 		<jetty9.version>9.2.13.v20150730</jetty9.version>
 		<log4j.version>2.5</log4j.version>
 		<junit.version>4.12</junit.version>
-        <hibernate.version>5.1.0.Final</hibernate.version>
-        <postgresql.version>9.4-1204-jdbc42</postgresql.version>
-        <spring.version>4.2.6.RELEASE</spring.version>
-        <hsqldb.version>2.3.3</hsqldb.version>
+		<hibernate.version>5.1.0.Final</hibernate.version>
+		<postgresql.version>9.4-1204-jdbc42</postgresql.version>
+		<spring.version>4.2.6.RELEASE</spring.version>
+		<hsqldb.version>2.3.3</hsqldb.version>
 		<wtp.version>none</wtp.version>
-    </properties>
+	</properties>
 
 	<dependencies>
 		<!--  WICKET DEPENDENCIES -->
@@ -40,6 +40,7 @@
 			<artifactId>log4j-slf4j-impl</artifactId>
 			<version>${log4j.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
@@ -163,39 +164,42 @@
             <scope>test</scope>
         </dependency>
 
-		<!--  JUNIT DEPENDENCY FOR TESTING -->
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>${junit.version}</version>
-			<scope>test</scope>
-		</dependency>
+	<!--  JUNIT DEPENDENCY FOR TESTING -->
+	<dependency>
+		<groupId>junit</groupId>
+		<artifactId>junit</artifactId>
+		<version>${junit.version}</version>
+		<scope>test</scope>
+	</dependency>
 
-		<!--  JETTY DEPENDENCIES FOR TESTING  -->
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>${jetty9.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>${jetty9.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-util</artifactId>
-			<version>${jetty9.version}</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-jmx</artifactId>
-			<version>${jetty9.version}</version>
-			<scope>test</scope>
-		</dependency>
+	<!--  JETTY DEPENDENCIES FOR TESTING  -->
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-server</artifactId>
+		<version>${jetty9.version}</version>
+		<scope>test</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-webapp</artifactId>
+		<version>${jetty9.version}</version>
+		<scope>test</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-util</artifactId>
+		<version>${jetty9.version}</version>
+		<scope>test</scope>
+	</dependency>
+
+	<dependency>
+		<groupId>org.eclipse.jetty</groupId>
+		<artifactId>jetty-jmx</artifactId>
+		<version>${jetty9.version}</version>
+		<scope>test</scope>
+	</dependency>
 
         <!-- launching in-memory database -->
         <!--
@@ -243,27 +247,26 @@
 			</testResource>
 		</testResources>
 		<plugins>
-            <!-- EXEC -->
-            <!-- conflicts with ?
-            <plugin>
-                 <groupId>org.codehaus.mojo</groupId>
-                 <artifactId>exec-maven-plugin</artifactId>
-                 <version>1.4.0</version>
+		    <!-- EXEC -->
+		    <!-- conflicts with ?
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.4.0</version>
 
-                 <executions><execution>
-                    <id>database</id>
-                    <phase>package</phase>
-                    <goals><goal>java</goal></goals>
-                 </execution></executions>
+				<executions><execution>
+					<id>database</id>
+					<phase>package</phase>
+					<goals><goal>java</goal></goals>
+				</execution></executions>
 
-                 <configuration>
-                     <mainClass>org.hsqldb.Server</mainClass>
-                     <args>-silent false -database.0 mem:target/test -dbname.0 test</args>
-                 </configuration>
-            </plugin>
-            -->
+				<configuration>
+					<mainClass>org.hsqldb.Server</mainClass>
+					<args>-silentfalse-database.0mem:target/test-dbname.0test</args>
+				</configuration>
+			</plugin>
+	-->
 
-            <!-- COMPILE -->
 			<plugin>
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -315,6 +318,5 @@
 			</snapshots>
 		</repository>
 	</repositories>
-
-
 </project>
+
