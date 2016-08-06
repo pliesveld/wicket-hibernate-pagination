@@ -29,7 +29,7 @@ public class UserDaoImpl implements UserDao {
     public UserDaoImpl() {}
 
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#getSession()
+     * @see com.baeldung.dao.UserDao#getSession()
      */
     public Session getSession() {
         return sessionFactory.getCurrentSession();
@@ -50,7 +50,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#getCount()
+     * @see com.baeldung.dao.UserDao#getCount()
      */
     @Override
     @Transactional(readOnly = true)
@@ -62,9 +62,8 @@ public class UserDaoImpl implements UserDao {
         return totalCount;
     }
 
-
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#getUser(int)
+     * @see com.baeldung.dao.UserDao#getUser(int)
      */
     @Override
     @Transactional(readOnly = true)
@@ -77,7 +76,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#getUser(java.lang.String)
+     * @see com.baeldung.dao.UserDao#getUser(java.lang.String)
      */
     @Override
     @Transactional(readOnly = true)
@@ -92,13 +91,12 @@ public class UserDaoImpl implements UserDao {
     }
 
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#saveUser(webmini.model.UserDetails)
+     * @see com.baeldung.dao.UserDao#saveUser(com.baeldung.model.UserDetails)
      */
     @Override
     @Transactional
     public int saveUser(UserDetails user) {
         int ret = 0;
-
         Session session = getSession();
         ret = (int) session.save(user);
         user.setId(ret);
@@ -107,7 +105,7 @@ public class UserDaoImpl implements UserDao {
     }
 
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#find(webmini.common.QueryParam)
+     * @see com.baeldung.dao.UserDao#find(com.baeldung.common.QueryParam)
      */
     @Override
     @Transactional(readOnly = true)
@@ -139,34 +137,9 @@ public class UserDaoImpl implements UserDao {
         return ret;
     }
 
-    /* (non-Javadoc)
-     * @see webmini.dao.UserDao#iterator(long, long, java.lang.String, boolean)
-     */
-    @Deprecated
-    @Transactional(readOnly = true)
-    public List<UserDetails> iterator(long first, long count, String field, boolean asc) {
-        LOG.info(String.format("iterator(%d,%d,%s)", first, count, field));
-        Session session = getSession();
-        Criteria criteria = session.createCriteria(UserDetails.class);
-
-        if (asc)
-            criteria.addOrder(Order.asc(field));
-        else
-            criteria.addOrder(Order.desc(field));
-
-        criteria.setFirstResult((int) first);
-        //TODO: .setFetchSize
-        criteria.setMaxResults((int) count);
-
-        @SuppressWarnings("unchecked")
-        List<UserDetails> ret = criteria.list();
-        return ret;
-    }
-
     @Override
     @Transactional(readOnly = true)
     public UserDetails getUserByEmail(String email) {
-
         Session session = getSession();
         UserDetails user = null;
         user = (UserDetails) session.createCriteria(UserDetails.class)
@@ -176,22 +149,11 @@ public class UserDaoImpl implements UserDao {
         return user;
     }
 
-    @Deprecated
-    @Transactional(readOnly = true)
-    public long getCount(String email) {
-        LOG.info(String.format("getCount(%s)", email));
-        Session session = getSession();
-        Integer totalCount = session.createCriteria(UserDetails.class)
-                .add(Restrictions.ilike("email", email, MatchMode.ANYWHERE))
-                .setProjection(Projections.rowCount()).uniqueResult()
-                .hashCode();
-        return totalCount;
-    }
-
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#getCount(webmini.service.FilterParam)
+     * @see com.baeldung.dao.UserDao#getCount(com.baeldung.service.FilterParam)
      */
     @Override
+    @Transactional(readOnly = true)
     public long getCount(FilterParam<String> filterState) {
         String email = filterState.getValue();
         LOG.info(String.format("getCount(%s)", email));
@@ -203,36 +165,15 @@ public class UserDaoImpl implements UserDao {
         return totalCount;
     }
 
-    @Deprecated
-    @Transactional(readOnly = true)
-    public List findByEmail(long first, long count, String email, String field, boolean asc) {
-        LOG.info(String.format("findByEmail(%d,%d,%s,%s)", first, count, email, field));
-        Session session = getSession();
-        Criteria criteria = session.createCriteria(UserDetails.class);
-
-        criteria.add(Restrictions.ilike("email", email, MatchMode.ANYWHERE));
-
-        if (asc)
-            criteria.addOrder(Order.asc(field));
-        else
-            criteria.addOrder(Order.desc(field));
-
-        criteria.setFirstResult((int) first);
-        // TODO: .setFetchSize
-        criteria.setMaxResults((int) count);
-        return criteria.list();
-    }
-
-
     /* (non-Javadoc)
-     * @see webmini.dao.UserDao#find(webmini.common.QueryParam, webmini.service.FilterParam)
+     * @see com.baeldung.dao.UserDao#find(com.baeldung.common.QueryParam, com.baeldung.service.FilterParam)
      */
     @Override
     @Transactional(readOnly = true)
     public List<UserDetails> find(QueryParam param, FilterParam<String> filterState) {
-
-        if (filterState == null || filterState.getValue() == "")
+        if (filterState == null || "".equals(filterState.getValue())) {
             return this.find(param);
+        }
 
         long first = param.getFirst();
         long count = param.getCount();
@@ -242,7 +183,6 @@ public class UserDaoImpl implements UserDao {
         LOG.info(String.format("findBy%s(%d,%d,%s,%s)", field, first, count, email, field));
         Session session = getSession();
         Criteria criteria = session.createCriteria(UserDetails.class);
-
         criteria.add(Restrictions.ilike(field, email, MatchMode.ANYWHERE));
 
         if (param.isAscending())
@@ -259,4 +199,56 @@ public class UserDaoImpl implements UserDao {
         return ret;
     }
 
+    /* (non-Javadoc)
+    * @see com.baeldung.dao.UserDao#iterator(long, long, java.lang.String, boolean)
+    */
+    @Deprecated
+    @Transactional(readOnly = true)
+    public List<UserDetails> iterator(long first, long count, String field, boolean asc) {
+        LOG.info(String.format("iterator(%d,%d,%s)", first, count, field));
+        Session session = getSession();
+        Criteria criteria = session.createCriteria(UserDetails.class);
+
+        if (asc)
+            criteria.addOrder(Order.asc(field));
+        else
+            criteria.addOrder(Order.desc(field));
+
+        criteria.setFirstResult((int) first);
+        criteria.setMaxResults((int) count);
+
+        @SuppressWarnings("unchecked")
+        List<UserDetails> ret = criteria.list();
+        return ret;
+    }
+
+    @Deprecated
+    @Transactional(readOnly = true)
+    public long getCount(String email) {
+        LOG.info(String.format("getCount(%s)", email));
+        Session session = getSession();
+        Integer totalCount = session.createCriteria(UserDetails.class)
+                .add(Restrictions.ilike("email", email, MatchMode.ANYWHERE))
+                .setProjection(Projections.rowCount()).uniqueResult()
+                .hashCode();
+        return totalCount;
+    }
+
+    @Deprecated
+    @Transactional(readOnly = true)
+    public List findByEmail(long first, long count, String email, String field, boolean asc) {
+        LOG.info(String.format("findByEmail(%d,%d,%s,%s)", first, count, email, field));
+        Session session = getSession();
+        Criteria criteria = session.createCriteria(UserDetails.class);
+        criteria.add(Restrictions.ilike("email", email, MatchMode.ANYWHERE));
+
+        if (asc)
+            criteria.addOrder(Order.asc(field));
+        else
+            criteria.addOrder(Order.desc(field));
+
+        criteria.setFirstResult((int) first);
+        criteria.setMaxResults((int) count);
+        return criteria.list();
+    }
 }
