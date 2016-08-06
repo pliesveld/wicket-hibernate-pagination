@@ -177,21 +177,22 @@ public class UserDaoImpl implements UserDao {
 
         long first = param.getFirst();
         long count = param.getCount();
-        String field = filterState.getField();
-        String email = filterState.getValue();
 
-        LOG.info(String.format("findBy%s(%d,%d,%s,%s)", field, first, count, email, field));
+        String sortField = param.getProperty();
+        String filterField = filterState.getField();
+        String filterValue = filterState.getValue();
+
+        LOG.info(String.format("findBy%s(%d,%d,%s,%s)", filterField, first, count, filterValue, filterField));
         Session session = getSession();
         Criteria criteria = session.createCriteria(UserDetails.class);
-        criteria.add(Restrictions.ilike(field, email, MatchMode.ANYWHERE));
+        criteria.add(Restrictions.ilike(filterField, filterValue, MatchMode.ANYWHERE));
 
         if (param.isAscending())
-            criteria.addOrder(Order.asc(field));
+            criteria.addOrder(Order.asc(sortField));
         else
-            criteria.addOrder(Order.desc(field));
+            criteria.addOrder(Order.desc(sortField));
 
         criteria.setFirstResult((int) first);
-        // TODO: .setFetchSize
         criteria.setMaxResults((int) count);
 
         @SuppressWarnings("unchecked")
