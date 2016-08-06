@@ -1,7 +1,7 @@
 package com.baeldung.users.web;
 
 import com.baeldung.dao.UserDao;
-import com.baeldung.service.GenerateUserRecords;
+import com.baeldung.service.GenerateUsersService;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
@@ -19,7 +19,7 @@ public class GenerateRecords extends WebPage {
     private UserDao userDao;
 
     @SpringBean
-    private GenerateUserRecords generateUserRecords;
+    private GenerateUsersService generateUsersService;
 
     int count;
 
@@ -34,7 +34,7 @@ public class GenerateRecords extends WebPage {
                 if (model instanceof Integer) {
                     Integer count = (Integer) model;
                     LOG.info("counting:" + count);
-                    generateUserRecords.create(count);
+                    generateUsersService.create(count);
                 }
             }
         };

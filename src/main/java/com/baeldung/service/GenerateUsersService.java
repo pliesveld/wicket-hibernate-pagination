@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class GenerateUserRecords {
-    final static Logger LOG = LogManager.getLogger(GenerateUserRecords.class);
+public class GenerateUsersService {
+    final static Logger LOG = LogManager.getLogger(GenerateUsersService.class);
 
     @Autowired
     UserDao userDao;
