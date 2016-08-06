@@ -2,7 +2,7 @@ package com.baeldung.dao;
 
 import com.baeldung.common.QueryParam;
 import com.baeldung.model.UserDetails;
-import com.baeldung.service.FilterParam;
+import com.baeldung.common.FilterParam;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.hibernate.Criteria;

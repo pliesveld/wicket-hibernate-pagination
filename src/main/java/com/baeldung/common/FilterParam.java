@@ -1,4 +1,4 @@
-package com.baeldung.service;
+package com.baeldung.common;
 
 import java.io.Serializable;
 
