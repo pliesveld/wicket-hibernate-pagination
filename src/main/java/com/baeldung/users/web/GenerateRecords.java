@@ -2,8 +2,6 @@ package com.baeldung.users.web;
 
 import com.baeldung.dao.UserDao;
 import com.baeldung.service.GenerateUsersService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.Form;
@@ -11,9 +9,11 @@ import org.apache.wicket.markup.html.form.RangeTextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class GenerateRecords extends WebPage {
-    final static Logger LOG = LogManager.getLogger(GenerateRecords.class);
+    final static Logger LOG = LoggerFactory.getLogger(GenerateRecords.class);
 
     @SpringBean
     private UserDao userDao;

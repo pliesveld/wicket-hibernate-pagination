@@ -6,7 +6,7 @@ package com.baeldung.dao;
 public class HibernateLoadableModel<T> extends LoadableDetachableModel<T>
 {
 
-    final static Logger LOG = LogManager.getLogger(HibernateLoadableModel.class);
+    final static Logger LOG = LoggerFactory.getLogger(HibernateLoadableModel.class);
     private Class<T> entityClass;
     private IdentifierLoadAccess<T> loadByKey;
     private Serializable identifier;

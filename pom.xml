@@ -11,7 +11,9 @@
 	<properties>
 		<wicket.version>7.0.0</wicket.version>
 		<jetty9.version>9.2.13.v20150730</jetty9.version>
-		<log4j.version>2.5</log4j.version>
+		<!--<log4j.version>2.5</log4j.version>-->
+        <logback.version>1.1.7</logback.version>
+        <slf4j.version>1.7.21</slf4j.version>
 		<junit.version>4.12</junit.version>
 		<hibernate.version>5.1.0.Final</hibernate.version>
 		<spring.version>4.2.6.RELEASE</spring.version>
@@ -34,22 +36,28 @@
 		</dependency>
 
 		<!-- LOGGING DEPENDENCIES - LOG4J -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-slf4j-impl</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.logging.log4j</groupId>-->
+			<!--<artifactId>log4j-slf4j-impl</artifactId>-->
+			<!--<version>${log4j.version}</version>-->
+		<!--</dependency>-->
 
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>org.apache.logging.log4j</groupId>-->
+			<!--<artifactId>log4j-core</artifactId>-->
+			<!--<version>${log4j.version}</version>-->
+		<!--</dependency>-->
 
         <!-- HIBERNATE DEPENDENCIES -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
             <version>${hibernate.version}</version>
         </dependency>
 
@@ -65,25 +73,18 @@
             <version>1.0.1.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-            <version>${hibernate.version}</version>
-        </dependency>
-
         <!-- LOGGING DEPENDENCIES - LOG4J 1.2 -->
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-1.2-api</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-
+        <!--<dependency>-->
+            <!--<groupId>org.apache.logging.log4j</groupId>-->
+            <!--<artifactId>log4j-1.2-api</artifactId>-->
+            <!--<version>${log4j.version}</version>-->
+        <!--</dependency>-->
         <!--HIBERNATE LOGGER (log4j)-->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.6</version>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.slf4j</groupId>-->
+            <!--<artifactId>slf4j-log4j12</artifactId>-->
+            <!--<version>1.7.6</version>-->
+        <!--</dependency>-->
 
         <!-- IN-MEMORY DATABASE -->
         <dependency>
@@ -118,6 +119,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
             <version>${spring.version}</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>commons-logging</artifactId>
+                    <groupId>commons-logging</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
@@ -149,6 +156,40 @@
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+            <!-- <scope>runtime</scope> -->
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+            <!-- <scope>runtime</scope> -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
+            <!-- <scope>runtime</scope> --> <!-- some spring dependencies need to compile against jcl -->
+        </dependency>
+
+        <dependency> <!-- needed to bridge to slf4j for projects that use the log4j APIs directly -->
+            <groupId>org.slf4j</groupId>
+            <artifactId>log4j-over-slf4j</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
         <!--  JUNIT DEPENDENCY FOR TESTING -->

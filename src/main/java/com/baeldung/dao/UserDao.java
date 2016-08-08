@@ -1,8 +1,8 @@
 package com.baeldung.dao;
 
+import com.baeldung.common.FilterParam;
 import com.baeldung.common.QueryParam;
 import com.baeldung.model.UserDetails;
-import com.baeldung.common.FilterParam;
 
 import java.util.List;
 
@@ -31,7 +31,7 @@ public interface UserDao {
 
     /**
      * Retrieves a list of list of rows from the table
-     * ordered by the {@value SortParam.property}
+     * ordered by the {@value org.apache.wicket.extensions.markup.html.repeater.util.SortParam}
      *
      * @param param
      * @return

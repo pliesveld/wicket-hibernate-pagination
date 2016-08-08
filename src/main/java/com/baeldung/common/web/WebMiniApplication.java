@@ -3,8 +3,6 @@ package com.baeldung.common.web;
 import com.baeldung.users.web.CreateRecord;
 import com.baeldung.users.web.GenerateRecords;
 import com.baeldung.users.web.ViewRecords;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 import org.springframework.beans.BeansException;

@@ -36,6 +36,4 @@ public class QueryParam {
     public boolean isAscending() {
         return sort != null ? sort.isAscending() : true;
     }
-
-
 }

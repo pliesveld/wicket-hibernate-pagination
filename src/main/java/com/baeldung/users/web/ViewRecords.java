@@ -1,12 +1,10 @@
 package com.baeldung.users.web;
 
+import com.baeldung.common.EmailFilter;
+import com.baeldung.common.FilterParam;
 import com.baeldung.common.QueryParam;
 import com.baeldung.dao.UserDao;
 import com.baeldung.model.UserDetails;
-import com.baeldung.common.EmailFilter;
-import com.baeldung.common.FilterParam;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
@@ -23,6 +21,8 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -31,7 +31,7 @@ import java.util.List;
 public class ViewRecords extends WebPage {
     private static final long serialVersionUID = 1L;
 
-    final static Logger LOG = LogManager.getLogger(ViewRecords.class);
+    final static Logger LOG = LoggerFactory.getLogger(ViewRecords.class);
 
     @SpringBean
     private UserDao userDao;

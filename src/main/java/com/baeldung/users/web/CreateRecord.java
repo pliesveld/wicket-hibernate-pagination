@@ -3,8 +3,6 @@ package com.baeldung.users.web;
 import com.baeldung.dao.UserDao;
 import com.baeldung.model.UserDetails;
 import com.baeldung.model.UserRole;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.EmailTextField;
@@ -17,11 +15,13 @@ import org.apache.wicket.util.io.IClusterable;
 import org.apache.wicket.validation.IValidatable;
 import org.apache.wicket.validation.IValidator;
 import org.apache.wicket.validation.ValidationError;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 
 public class CreateRecord extends WebPage {
-    final static Logger LOG = LogManager.getLogger(CreateRecord.class);
+    final static Logger LOG = LoggerFactory.getLogger(CreateRecord.class);
 
     @SpringBean
     private UserDao userDao;

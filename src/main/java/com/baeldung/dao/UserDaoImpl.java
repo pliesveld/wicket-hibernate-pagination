@@ -1,10 +1,8 @@
 package com.baeldung.dao;
 
+import com.baeldung.common.FilterParam;
 import com.baeldung.common.QueryParam;
 import com.baeldung.model.UserDetails;
-import com.baeldung.common.FilterParam;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -13,6 +11,8 @@ import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 
 @Repository(value = "userDao")
 public class UserDaoImpl implements UserDao {
-    final private static Logger LOG = LogManager.getLogger(UserDaoImpl.class);
+    final private static Logger LOG = LoggerFactory.getLogger(UserDaoImpl.class);
 
     @Autowired
     private SessionFactory sessionFactory;
